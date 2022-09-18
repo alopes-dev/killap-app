@@ -1,6 +1,7 @@
 import * as React from "react";
 import { HighLightCard, TransactionCard } from "../../components";
 import { TransactionProps } from "../../components/transaction-card/transaction-card";
+import { useAuth } from "../../hooks";
 
 import {
   Container,
@@ -71,18 +72,20 @@ const transactions: TransactionListProps[] = [
 ];
 
 export function Dashboard() {
+  const { user, signOut } = useAuth();
+
   return (
     <Container>
       <Header>
         <UserWrapper>
           <UserInformation>
-            <Photo source={{ uri: "https://github.com/alopes-dev.png" }} />
+            <Photo source={{ uri: user?.avatar }} />
             <User>
               <GreetingMessage>Olá,</GreetingMessage>
-              <UserName>Anthony ()</UserName>
+              <UserName>{user?.name}</UserName>
             </User>
           </UserInformation>
-          <LogOutButton>
+          <LogOutButton onPress={signOut}>
             <PowerIcon name="power" />
           </LogOutButton>
         </UserWrapper>

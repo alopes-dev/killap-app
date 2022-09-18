@@ -11,9 +11,10 @@ import {
 import theme from "./src/global/styles/theme";
 import { ActivityIndicator, StatusBar } from "react-native";
 import { AppRoutes } from "./src/routes/app.routes";
-import { NavigationContainer } from "@react-navigation/native";
+import { Routes } from "./src/routes";
 import { SignIn } from "./src/srceen";
 import { AuthProvider } from "./src/context";
+import { useAuth } from "./src/hooks";
 
 // SplashScreen.preventAutoHideAsync();
 
@@ -23,27 +24,24 @@ export default function App() {
     Poppins_500Medium,
     Poppins_700Bold,
   });
-
+  const { userStorageLoading } = useAuth();
   // const onLayoutRootView = useCallback(async () => {
   //   if (isFontsLoaded) {
   //     await SplashScreen.hideAsync();
   //   }
   // }, [isFontsLoaded]);
 
-  if (!isFontsLoaded) {
+  if (!isFontsLoaded || userStorageLoading) {
     return <ActivityIndicator />;
   }
 
   return (
     <ThemeProvider theme={theme}>
       {/* <View onLayout={onLayoutRootView}> */}
-      <NavigationContainer>
-        <StatusBar barStyle="light-content" />
-        <AuthProvider>
-          <SignIn />
-        </AuthProvider>
-        {/* <AppRoutes /> */}
-      </NavigationContainer>
+      <StatusBar barStyle="light-content" />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
       {/* </View> */}
     </ThemeProvider>
   );

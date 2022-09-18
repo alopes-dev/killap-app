@@ -2,10 +2,13 @@
   "expo": {
     "name": "killap-app",
     "slug": "killap-app",
-    "scheme":"killap-app",
+    "scheme": "killap-app",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "ios": {
+      "bundleIdentifier": "org.name.killapapp"
+    }
   }
 }
